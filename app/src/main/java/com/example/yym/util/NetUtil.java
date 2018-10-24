@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.renderscript.RenderScript;
-
+//检查网络连接是否正常
 public class NetUtil {
+    //状态为连接不正常
     public static final int NETWORN_NONE=0;
+    //状态为连接为WIFI
     public static final int NETWORN_WIFI=1;
+    //连接网络为流量
     public static final int NETWORN_MOBILE=2;
 
     public static int getNetWorkState(Context context){

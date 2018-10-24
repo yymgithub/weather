@@ -1,5 +1,5 @@
 package com.example.yym.bean;
-
+//通过HTTP获取数据时数据用于存储的类
 public class TodayWeather {
     private String city;
     private String updatetime;

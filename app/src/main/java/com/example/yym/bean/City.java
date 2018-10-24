@@ -1,8 +1,11 @@
 package com.example.yym.bean;
-
+//数据库中对应的bean类
 public class City {
+    //省份
     private String province;
+    //城市名称
     private String city;
+    //城市编码
     private String number;
     private String firstPY;
     private String allPY;

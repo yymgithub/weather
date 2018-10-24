@@ -7,8 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.yym.bean.City;
 
 import java.util.ArrayList;
-import java.util.List;
-
+//从数据库中读取数据
 public class CityDB {
     public static final String CITY_DB_NAME = "city.db";
     private static final String CITY_TABLE_NAME = "city";
@@ -16,8 +15,8 @@ public class CityDB {
     public CityDB(Context context, String path) {
         db = context.openOrCreateDatabase(path, Context.MODE_PRIVATE, null);
     }
-    public List<City> getAllCity() {
-        List<City> list = new ArrayList<City>();
+    public ArrayList<City> getAllCity() {
+        ArrayList<City> list = new ArrayList<City>();
         Cursor c = db.rawQuery("SELECT * from " + CITY_TABLE_NAME, null);
         while (c.moveToNext()) {
             String province = c.getString(c.getColumnIndex("province"));

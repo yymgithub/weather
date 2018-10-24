@@ -18,7 +18,7 @@ public class MyApplication  extends Application {
     private static  final String  TAG="MyAPP";
     private static MyApplication myApplication;
     private  CityDB mCityDB;
-    private List<City> mCityList;
+    private ArrayList<City> mCityList;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,6 +31,7 @@ public class MyApplication  extends Application {
         return myApplication;
     }
 
+    //生成读取数据库的类,将数据库中的数据读入到内存
     private CityDB openCityDB() {
         String path = "/data"
                 + Environment.getDataDirectory().getAbsolutePath()
@@ -89,13 +90,17 @@ public class MyApplication  extends Application {
             i++;
             String cityName = city.getCity();
             String cityCode = city.getNumber();
-            Log.d(TAG,cityCode+":"+cityName);
+            String cityProvince=city.getProvince();
+            String firstPY=city.getFirstPY();
+            String allPY=city.getAllPY();
+            String allFirstPy=city.getAllFristPY();
+            Log.d(TAG,cityCode+":"+cityName+":"+cityProvince+":"+firstPY+":"+allPY+allFirstPy);
         }
         Log.d(TAG,"i="+i);
         return true;
     }
-
-    public List<City> getCityList() {
+//其他类获取application初始化时从数据库中获取得到的城市数据
+    public ArrayList<City> getCityList() {
         return mCityList;
     }
 

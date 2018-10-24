@@ -29,20 +29,27 @@ import com.example.yym.bean.TodayWeather;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int UPDATE_TODAY_WEATHER = 1;
+    //对应主界面刷新按钮
     private ImageView mUpdateBtn;
+    //对应主界面的切换城市按钮
     private ImageView mCitySelect;
+    //对应主界面城市，时间等控件
     private TextView cityTv,timeTv,humidityTv,weekTv,
             pmDataTv,pmQualityTv,temperatureTv,climateTv,windTv,city_name_Tv;
+    //对应主界面显示天气情况的图片控件，对应界面表示PM的图片控件
     private ImageView weatherImg,pmImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //添加对应界面为activity_main.xml
         setContentView(R.layout.activity_main);
         mUpdateBtn=(ImageView)findViewById(R.id.title_update_btn);
+        //设置控件点击监听事件
         mUpdateBtn.setOnClickListener(this);
         mCitySelect=findViewById(R.id.title_city_manager);
         mCitySelect.setOnClickListener(this);
+        //检查网络连接是否正常
         if(NetUtil.getNetWorkState(this)!=NetUtil.NETWORN_NONE){
             Log.d("myWeather","网络OK");
             Toast.makeText(MainActivity.this,"网络ok",Toast.LENGTH_LONG);
@@ -52,19 +59,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this,"网络挂了",Toast.LENGTH_LONG);
             }
             initView();
+
+
+        //SharePreferences操作，首次进入时取得城市天气为上次退出时所选择
+            SharedPreferences sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("cityCode","101010100");
+//            editor.putString("cityName","北京");
+//            editor.commit();
+            String cityCode=sharedPreferences.getString("cityCode","101010100");
+            queryWeahterCode(cityCode);
     }
 
 
     @Override
     public void onClick(View v) {
+        //主界面点击为切换城市按钮
         if(v.getId()==R.id.title_city_manager){
             Intent i= new Intent(this,SelectCity.class);
 //            startActivity(i);
             startActivityForResult(i,1);
         }
+        //主界面点击为界面刷新按钮
         if(v.getId()==R.id.title_update_btn){
+            //用SharedPreferences文件作为界面之间城市存储变化的方式
             SharedPreferences sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
-            String cityCode=sharedPreferences.getString("main_city_code","101010100");
+            String cityCode=sharedPreferences.getString("cityCode","101010100");
             Log.d("myWeather",cityCode);
             if(NetUtil.getNetWorkState(this)!=NetUtil.NETWORN_NONE){
                 Log.d("myWeather","网络OK");
@@ -76,10 +96,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
+//用于接受子界面返回时的操作
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode ==1 && resultCode==RESULT_OK){
-            String newCityCode = data.getStringExtra("cityCode");
+            SharedPreferences sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
+            String newCityCode = sharedPreferences.getString("cityCode","101010100");
             Log.d("myWeather","选择城市代码为"+newCityCode);
             if(NetUtil.getNetWorkState(this)!=NetUtil.NETWORN_NONE){
                 Log.d("myWeather","网络OK");
@@ -92,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
+//HTTP获取数据
     private  void queryWeahterCode(String cityCode){
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d("myWeather",address);
@@ -139,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ).start();
     }
-
+//解析通过网络获取得到的XML文件
     private TodayWeather parseXML(String xmldata){
         TodayWeather  toadayWeather=null;
         int fengxiangCount=0;
@@ -234,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return toadayWeather;
     }
-
+//主界面控件的初始化
     void initView(){
         city_name_Tv=findViewById(R.id.title_city_name);
         cityTv=findViewById(R.id.city);
@@ -262,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         windTv.setText("N/A");
     }
 
-
+//更新返回的数据到界面表示
     void updateTodayWeather(TodayWeather todayWeather){
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());
@@ -363,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Toast.makeText(MainActivity.this,"更新成功!",Toast.LENGTH_SHORT).show();
     }
-
+//主线程处理子线程返回的数据
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
