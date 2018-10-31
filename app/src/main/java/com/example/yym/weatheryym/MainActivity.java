@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pmDataTv,pmQualityTv,temperatureTv,climateTv,windTv,city_name_Tv;
     //对应主界面显示天气情况的图片控件，对应界面表示PM的图片控件
     private ImageView weatherImg,pmImg;
+    //界面进度条控件
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUpdateBtn.setOnClickListener(this);
         mCitySelect=findViewById(R.id.title_city_manager);
         mCitySelect.setOnClickListener(this);
+        progressBar=findViewById(R.id.title_update_progress);
+        progressBar.setVisibility(View.GONE);
         //检查网络连接是否正常
         if(NetUtil.getNetWorkState(this)!=NetUtil.NETWORN_NONE){
             Log.d("myWeather","网络OK");
@@ -83,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //主界面点击为界面刷新按钮
         if(v.getId()==R.id.title_update_btn){
             //用SharedPreferences文件作为界面之间城市存储变化的方式
+            progressBar.setVisibility(View.VISIBLE);
+            mUpdateBtn.setVisibility(View.GONE);
+//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) title.getLayoutParams();
+//            layoutParams.addRule(RelativeLayout., R.id.imageButtonCursor);
             SharedPreferences sharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
             String cityCode=sharedPreferences.getString("cityCode","101010100");
             Log.d("myWeather",cityCode);
@@ -383,6 +393,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Toast.makeText(MainActivity.this,"更新成功!",Toast.LENGTH_SHORT).show();
+        progressBar.setVisibility(View.GONE);
+        mUpdateBtn.setVisibility(View.VISIBLE);
     }
 //主线程处理子线程返回的数据
     private Handler mHandler = new Handler() {

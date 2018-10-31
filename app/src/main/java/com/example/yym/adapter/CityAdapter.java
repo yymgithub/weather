@@ -43,14 +43,20 @@ public class CityAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.city_item,parent,false);
         TextView cityName=convertView.findViewById(R.id.cityName);
+        TextView cityProvince=convertView.findViewById(R.id.cityProvince);
 //        TextView cityCode=convertView.findViewById(R.id.cityCode);
         if(myCityList.get(position).getCity().equals(myCityList.get(position).getProvince())){
             cityName.setText(myCityList.get(position).getCity());
+            cityProvince.setText(myCityList.get(position).getProvince());
         }
         else{
-            cityName.setText(myCityList.get(position).getCity()+"  "+myCityList.get(position).getProvince());
+            cityName.setText(myCityList.get(position).getCity());
+            cityProvince.setText(myCityList.get(position).getProvince());
         }
 //        cityCode.setText(myCityList.get(position).getNumber());
         return convertView;
+    }
+    public void updateListView(ArrayList<City> filterList){
+        myCityList=filterList;
     }
 }
