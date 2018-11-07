@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/biz_plugin_weather_shenzhen_bg"
         android:orientation="vertical"
-        android:layout_below="@id/title">
+        android:layout_below="@id/title"
+       >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -111,7 +112,8 @@
                 android:layout_below="@id/humidity"
                 android:layout_marginTop="5.0dip"
                 android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true">
+                android:layout_centerInParent="true"
+                android:id="@+id/tanqi">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -167,6 +169,38 @@
                     android:layout_marginLeft="5.0dip"/>
 
             </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mainPagerView">
+            </android.support.v4.view.ViewPager>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/indicator_main"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal"
+                android:background="#ff000000"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/iv_mian1"
+                    android:src="@drawable/page_indicator_focused"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:id="@+id/iv_mina2"
+                    android:src="@drawable/page_indicator_unfocused"/>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
