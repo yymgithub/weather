@@ -40,7 +40,7 @@ import com.example.yym.bean.TodayWeather;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
     private static final int UPDATE_TODAY_WEATHER = 1;
-    private static final int LA = 1;
+    private static final int LAM = 1;
     //对应主界面刷新按钮
     private ImageView mUpdateBtn;
     //对应主界面的切换城市按钮
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final Handler LAHandler = new Handler(){
                 public void handleMessage(Message msg){
                     switch(msg.what){
-                        case LA:
+                        case LAM:
                             if(msg.obj!=null){
                                 queryWeahterCode(myLocatedListener.cityCode);
                                 SharedPreferences sharedPreferences= getSharedPreferences("config",MODE_PRIVATE);
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Thread.sleep(2000);
                         }
                         Message msg= new Message();
-                        msg.what=LA;
+                        msg.what=LAM;
                         msg.obj=myLocatedListener.cityCode;
                         LAHandler.sendMessage(msg);
 
