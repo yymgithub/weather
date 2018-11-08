@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.WeakHashMap;
 
 import com.example.yym.bean.TodayWeather;
+import com.umeng.analytics.MobclickAgent;
 
+//5be2e84ff1f556cfb80006b2
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,ViewPager.OnPageChangeListener {
     private static final int UPDATE_TODAY_WEATHER = 1;
     private static final int LAM = 1;
@@ -519,7 +521,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pmDataTv.setText(todayWeather.getPm25());
         pmQualityTv.setText(todayWeather.getQuality());
         weekTv.setText(todayWeather.getDate());
-        temperatureTv.setText(todayWeather.getHigh()+"~"+todayWeather.getLow());
+        String high=todayWeather.getHigh().replace("高温","");
+        String low=todayWeather.getLow().replace("低温","");
+        temperatureTv.setText(high+"~"+low);
         climateTv.setText(todayWeather.getType());
         windTv.setText("风力:"+todayWeather.getFengli());
         if(todayWeather.getPm25()!=null){
@@ -674,10 +678,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dateOtv2.setText(weathers.get(2).getDate());
         dateOtv3.setText(weathers.get(3).getDate());
         dateOtv4.setText(weathers.get(4).getDate());
-        tempertureOtv1.setText(weathers.get(1).getHigh()+"~"+weathers.get(1).getLow());
-        tempertureOtv2.setText(weathers.get(2).getHigh()+"~"+weathers.get(2).getLow());
-        tempertureOtv3.setText(weathers.get(3).getHigh()+"~"+weathers.get(3).getLow());
-        tempertureOtv4.setText(weathers.get(4).getHigh()+"~"+weathers.get(4).getLow());
+        String high1=weathers.get(1).getHigh().replace("高温","");
+        String low1=weathers.get(1).getLow().replace("低温","");
+        String high2=weathers.get(2).getHigh().replace("高温","");
+        String low2=weathers.get(2).getLow().replace("低温","");
+        String high3=weathers.get(3).getHigh().replace("高温","");
+        String low3=weathers.get(3).getLow().replace("低温","");
+        String high4=weathers.get(4).getHigh().replace("高温","");
+        String low4=weathers.get(4).getLow().replace("低温","");
+        tempertureOtv1.setText(high1+"~"+low1);
+        tempertureOtv2.setText(high2+"~"+low2);
+        tempertureOtv3.setText(high3+"~"+low3);
+        tempertureOtv4.setText(high4+"~"+low4);
         cliamteOtv1.setText(weathers.get(1).getType());
         windOtv1.setText(weathers.get(1).getFengxiang());
         cliamteOtv2.setText(weathers.get(2).getType());
@@ -973,5 +985,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

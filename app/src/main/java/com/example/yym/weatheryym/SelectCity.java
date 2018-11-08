@@ -19,6 +19,7 @@ import com.example.yym.adapter.CityAdapter;
 import com.example.yym.app.MyApplication;
 import com.example.yym.bean.City;
 import com.example.yym.lay.ClearEditText;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -142,5 +143,16 @@ public class SelectCity  extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

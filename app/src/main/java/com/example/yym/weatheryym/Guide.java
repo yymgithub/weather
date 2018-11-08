@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.yym.adapter.PagerViewAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -77,6 +78,18 @@ public class Guide extends Activity implements ViewPager.OnPageChangeListener {
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
 

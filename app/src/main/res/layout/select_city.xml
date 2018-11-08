@@ -12,7 +12,7 @@
             android:id="@+id/search_edit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="搜索全国城市(中⽂文)"
+            android:hint="搜索全国城市(中文)"
             android:layout_margin="10.0dip"
             android:drawableLeft=
             "@drawable/magnifying_glass"

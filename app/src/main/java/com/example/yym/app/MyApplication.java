@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.yym.bean.City;
 import com.example.yym.db.CityDB;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ public class MyApplication  extends Application {
         myApplication =this;
         mCityDB=openCityDB();
         initCityList();
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE,"");
     }
     public  static  MyApplication getInstance(){
         return myApplication;

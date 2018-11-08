@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5.0dip"
                     android:layout_below="@id/week_today"
-                    android:textSize="30.0sp"
+                    android:textSize="20.0sp"
                     android:textColor="@android:color/white"
                     android:text="12℃~25℃"
                     android:layout_toRightOf="@id/weather_img"
@@ -186,7 +186,7 @@
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:gravity="center_horizontal"
-                android:background="#ff000000"
+
                 >
                 <ImageView
                     android:layout_width="wrap_content"
